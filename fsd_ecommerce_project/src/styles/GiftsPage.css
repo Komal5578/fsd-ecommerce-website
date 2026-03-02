@@ -51,6 +51,12 @@
   position: relative;
   color: #5d4e4e;
   padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cart-indicator:hover {
+  color: #935400;
 }
 
 .cart-count {
@@ -197,9 +203,35 @@
   font-size: 1.2rem;
   font-weight: 500;
   color: #4a3f3f;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(200, 160, 140, 0.2);
+}
+
+.close-cart-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #935400;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-cart-btn:hover {
+  color: #7a4600;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #9a8b8b;
+  padding: 2rem 0;
 }
 
 .cart-items {
@@ -299,6 +331,81 @@
 .checkout-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(147, 84, 0, 0.4);
+}
+
+/* Order Confirmation Modal */
+.order-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.order-modal {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.order-checkmark {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #935400 0%, #7a4600 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  margin: 0 auto 1.5rem;
+}
+
+.order-modal h2 {
+  font-size: 1.8rem;
+  color: #935400;
+  margin-bottom: 0.5rem;
+  font-family: 'Ephesis', cursive;
+}
+
+.order-modal p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.close-modal-btn {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #935400 0%, #7a4600 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(147, 84, 0, 0.3);
 }
 
 /* Footer */

@@ -120,9 +120,12 @@ const gifts = [
 
 const GiftsPage = ({ onNavigate }) => {
   const [cart, setCart] = useState([]);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   const addToCart = (gift) => {
     setCart([...cart, gift]);
+    setShowCart(true);
   };
 
   const removeFromCart = (id) => {
@@ -134,6 +137,12 @@ const GiftsPage = ({ onNavigate }) => {
     }
   };
 
+  const handleCheckout = () => {
+    setOrderConfirmed(true);
+    setCart([]);
+    setShowCart(false);
+  };
+
   const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
@@ -143,7 +152,7 @@ const GiftsPage = ({ onNavigate }) => {
           <span className="logo-icon">♥</span>
           <span className="logo-text">Blushberry Gifts</span>
         </div>
-        <div className="cart-indicator">
+        <div className="cart-indicator" onClick={() => setShowCart(!showCart)} style={{ cursor: 'pointer' }}>
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" 
@@ -186,32 +195,54 @@ const GiftsPage = ({ onNavigate }) => {
           </div>
         </section>
 
-        {cart.length > 0 && (
+        {showCart && (
           <aside className="cart-sidebar">
-            <h2 className="cart-title">Your Cart</h2>
-            <div className="cart-items">
-              {cart.map((item, index) => (
-                <div key={index} className="cart-item">
-                  <img src={item.image} alt={item.name} className="cart-item-icon" />
-                  <div className="cart-item-details">
-                    <span className="cart-item-name">{item.name}</span>
-                    <span className="cart-item-price">{item.price.toFixed(2)}</span>
-                  </div>
-                  <button 
-                    className="remove-btn"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    ×
-                  </button>
+            <div className="cart-header">
+              <h2 className="cart-title">Your Cart</h2>
+              <button className="close-cart-btn" onClick={() => setShowCart(false)}>×</button>
+            </div>
+            {cart.length === 0 ? (
+              <p className="empty-cart">Your cart is empty</p>
+            ) : (
+              <>
+                <div className="cart-items">
+                  {cart.map((item, index) => (
+                    <div key={index} className="cart-item">
+                      <img src={item.image} alt={item.name} className="cart-item-icon" />
+                      <div className="cart-item-details">
+                        <span className="cart-item-name">{item.name}</span>
+                        <span className="cart-item-price">{item.price.toFixed(2)}</span>
+                      </div>
+                      <button 
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="cart-total">
-              <span>Total:</span>
-              <span className="total-amount">{cartTotal.toFixed(2)}</span>
-            </div>
-            <button className="checkout-btn">Checkout</button>
+                <div className="cart-total">
+                  <span>Total:</span>
+                  <span className="total-amount">{cartTotal.toFixed(2)}</span>
+                </div>
+                <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+              </>
+            )}
           </aside>
+        )}
+
+        {orderConfirmed && (
+          <div className="order-modal-overlay">
+            <div className="order-modal">
+              <div className="order-checkmark">✓</div>
+              <h2>Order Confirmed!</h2>
+              <p>Thank you for shopping with Blushberry Gifts</p>
+              <button className="close-modal-btn" onClick={() => setOrderConfirmed(false)}>
+                Continue Shopping
+              </button>
+            </div>
+          </div>
         )}
       </main>
 
