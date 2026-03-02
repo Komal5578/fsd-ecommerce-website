@@ -163,8 +163,7 @@ const GiftsPage = ({ onNavigate }) => {
 
       <main className="main-content">
         <section className="gifts-section">
-          <h1 className="page-title">Gifts That Feel Special</h1>
-          
+         
           <div className="gifts-grid">
             {gifts.map((gift) => (
               <div key={gift.id} className="gift-card">
